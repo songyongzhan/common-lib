@@ -27,7 +27,7 @@ class Tree
         return $result;
     }
 
-    public static function menuList($data, $pid = 0, $primaryKey = 'id', $parent_name = 'pid', $rank = 0)
+    public static function menuList($data, $pid = 0, $primaryKey = 'id', $parent_name = 'pid', $step = 0)
     {
         if (empty($data)) {
             return [];
@@ -35,10 +35,10 @@ class Tree
         $result = [];
         foreach ($data as $key => $val) {
             if ($val[$parent_name] == $pid) {
-                $val['rank'] = $rank;
+                $val['step'] = $step;
                 $result[] = $val;
                 $result = array_merge($result,
-                    self::menuList($result, $val[$primaryKey], $primaryKey, $parent_name, $rank + 1));
+                    self::menuList($result, $val[$primaryKey], $primaryKey, $parent_name, $step + 1));
             }
         }
         return $result;
