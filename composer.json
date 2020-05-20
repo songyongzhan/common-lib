@@ -1,0 +1,42 @@
+{
+  "name": "songyz/common-lib",
+  "description": "公用工具包",
+  "license": "MIT",
+  "keywords": [
+    "laravel",
+    "api",
+    "orm",
+    "request",
+    "crud",
+    "test",
+    "generator"
+  ],
+  "authors": [
+    {
+      "name": "SongYongZhan",
+      "email": "574482856@qq.com"
+    }
+  ],
+  "type": "library",
+  "autoload": {
+    "psr-4": {
+      "Songyz\\Common\\": "src/",
+      "Songyz\\Common\\Tests\\": "tests/"
+    },
+    "files": [
+
+    ]
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^8.5"
+  },
+  "autoload-dev": {
+    "psr-4": {
+    }
+  },
+  "require": {
+    "php": ">=7.1",
+    "lcobucci/jwt": "^3.3"
+  },
+  "minimum-stability": "dev"
+}
