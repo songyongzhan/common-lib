@@ -133,14 +133,33 @@ class Tools
      * 下划线转驼峰
      * camel
      * @param $value
+     * @param string $delimiter
      * @return string
      *
      * @date 2020/5/20 23:26
      */
-    public static function camel($value)
+    public static function camel($value, $delimiter = '_')
     {
-        $value = ucwords(str_replace(['-', '_'], ' ', $value));
+        $replace = self::wrap($delimiter);
+        $value = ucwords(str_replace($replace, ' ', $value));
         return lcfirst(str_replace(' ', '', $value));
+    }
+
+    /**
+     * 将value转换成数组
+     * wrap
+     * @param $value
+     * @return array
+     *
+     * @date 2020/5/21 11:02
+     */
+    public static function wrap($value)
+    {
+        if (is_array($value)) {
+            return $value;
+        }
+
+        return (array)$value;
     }
 
     /**
@@ -158,6 +177,96 @@ class Tools
         $value = strtolower(preg_replace('/(.)(?=[A-Z])/u', '$1' . $delimiter, $value));
 
         return $value;
+    }
+
+
+    /**
+     * 数组转换为驼峰
+     * dataCamel
+     * @param array $data
+     * @param string $changeType 默认是转换键值对 的键
+     * @return array
+     *
+     * @author songyz <songyz@guahao.com>
+     * @date 2020/5/21 10:27
+     */
+    public static function dataCamel(array $data, $changeType = 'key')
+    {
+        if (!$data) {
+            return [];
+        }
+        $newAttributes = [];
+        if ($changeType === 'key' || empty($changeType)) {
+            foreach ($data as $k => $v) {
+                $val = $v;
+                is_null($v) && $val = '';
+                if (is_array($v)) {
+                    $val = self::dataCamel($v, $changeType);
+                }
+
+                $newAttributes[self::camel($k)] = $val;
+            }
+        } else {
+            foreach ($data as $k => $v) {
+                $val = $v;
+                is_null($v) && $val = '';
+                if (is_array($v)) {
+                    $val = self::dataCamel($v, $changeType);
+                } else {
+                    if (is_string($v)) {
+                        $val = self::camel($v);
+                    }
+                }
+
+                $newAttributes[$k] = $val;
+            }
+        }
+
+        return $newAttributes;
+    }
+
+    /**
+     * 驼峰转下划线或其他字符
+     * data_snake
+     *
+     * @param array $data
+     * @param string $delimiter
+     * @param string $changeType
+     * @return array
+     * @author songyz <songyz@guahao.com>
+     * @date 2020/1/19 17:12
+     */
+    public static function dataSnake(array $data, $delimiter = '_', $changeType = 'key')
+    {
+        $newAttributes = [];
+
+        if ($changeType === 'key' || empty($changeType)) {
+            foreach ($data as $k => $v) {
+                $val = $v;
+                is_null($v) && $val = '';
+                if (is_array($v)) {
+                    $val = self::dataSnake($v, $delimiter, $changeType);
+                }
+
+                $newAttributes[self::snake($k, $delimiter)] = $val;
+            }
+        } else {
+            foreach ($data as $k => $v) {
+                $val = $v;
+                is_null($v) && $val = '';
+                if (is_array($v)) {
+                    $val = self::dataSnake($v, $delimiter, $changeType);
+                } else {
+                    if (is_string($v)) {
+                        $val = self::snake($v, $delimiter);
+                    }
+                }
+
+                $newAttributes[$k] = $val;
+            }
+        }
+
+        return $newAttributes;
     }
 
 
@@ -305,5 +414,104 @@ class Tools
         return $xml;
     }
 
+    /**
+     * 数组转对象
+     * arrayToObject
+     * @param $e
+     * @return object|void
+     *
+     * @date 2020/5/21 10:00
+     */
+    public static function arrayToObject($e)
+    {
+        if (gettype($e) != 'array') {
+            return;
+        }
+        foreach ($e as $k => $v) {
+            if (gettype($v) == 'array' || getType($v) == 'object') {
+                $e[$k] = (object)self::arrayToObject($v);
+            }
+        }
+        return (object)$e;
+    }
+
+    /**
+     * 对象转数据
+     * objectToArray
+     * @param $e
+     * @return array|void
+     *
+     * @date 2020/5/21 10:01
+     */
+    public static function objectToArray($e)
+    {
+        $e = (array)$e;
+        foreach ($e as $k => $v) {
+            if (gettype($v) == 'resource') {
+                return;
+            }
+            if (gettype($v) == 'object' || gettype($v) == 'array') {
+                $e[$k] = (array)self::objectToArray($v);
+            }
+        }
+        return $e;
+    }
+
+
+    public static function randomStr($length, $strPool = '')
+    {
+        empty($strPool) && $strPool = '23456789abcdefghgkmnpqrstuvwxyzABCDEFGHGKMNPQRSTUVWXYZ';
+
+        $randomStrPool = str_shuffle($strPool);
+        if ($length >= mb_strlen($strPool, 'utf-8')) {
+            return $randomStrPool;
+        }
+
+        return mb_substr($randomStrPool, 0, $length, 'utf-8');
+    }
+
+    public static function randomNum($length)
+    {
+        $strPool = '1234567890';
+
+        $randomStrPool = str_shuffle($strPool);
+        if ($length >= strlen($strPool)) {
+            return $randomStrPool;
+        }
+
+        return substr($randomStrPool, 0, $length);
+    }
+
+    /**
+     * 从dataPool中获取指定key的值
+     * getDataByKey
+     * @param string $selectKey
+     * @param array $dataPool
+     * @param string $default
+     * @return mixed|string
+     *
+     * @date 2020/5/21 11:23
+     */
+    public static function getDataByKey(string $selectKey, array $dataPool, $default = '')
+    {
+        if (empty($selectKey)) {
+            throw new \InvalidArgumentException('参数不能为空');
+        }
+        $post = $default;
+
+        $keys = explode('.', $selectKey);
+
+        foreach ($keys as $key) {
+            if (array_key_exists($key, $dataPool)) {
+                $dataPool = $dataPool[$key];
+                $post = $dataPool;
+            } else {
+                $post = $default;
+                break;
+            }
+        }
+
+        return $post;
+    }
 
 }
