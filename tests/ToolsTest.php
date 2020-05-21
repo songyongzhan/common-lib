@@ -80,7 +80,6 @@ class ToolsTest extends TestCase
         $this->assertIsBool(true);
     }
 
-
     public function testGetDataByKey()
     {
         $data = [
