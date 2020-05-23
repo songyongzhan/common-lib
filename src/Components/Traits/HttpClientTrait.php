@@ -42,11 +42,6 @@ trait HttpClientTrait
         return $this;
     }
 
-    public function setCurlOptions()
-    {
-
-    }
-
     protected function setClientConfig($name, $value = '')
     {
         if (is_array($name)) {
