@@ -12,6 +12,19 @@ namespace Songyz\Common\Library;
 class Tools
 {
     /**
+     * 打印函数
+     * p
+     * @param $param
+     * @date 2020/5/23 08:09
+     */
+    public static function p($param)
+    {
+        echo '<pre style="color:blue">';
+        print_r($param);
+        echo '</pre>';
+    }
+
+    /**
      * ip转换成数字
      * ipToLong
      * @param $ip
