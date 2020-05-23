@@ -39,5 +39,5 @@
     "lcobucci/jwt": "^3.3",
     "guzzlehttp/guzzle": "^6.5"
   },
-  "minimum-stability": "stable"
+  "minimum-stability": "dev"
 }
