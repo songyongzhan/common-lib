@@ -59,19 +59,6 @@ class Tools
     }
 
     /**
-     * 获取当前时间
-     * getCurrentDate
-     * @param string $format
-     * @return false|string
-     *
-     * @date 2020/5/20 23:01
-     */
-    public static function getCurrentDate($format = 'Y-m-d H:i:s')
-    {
-        return date($format);
-    }
-
-    /**
      * 字符脱敏输出
      * desensitizeStr
      * @param $str
@@ -547,6 +534,45 @@ class Tools
     }
 
     /**
+     * 判断是不是ajax请求
+     * isAjax
+     * @return bool
+     *
+     * @date 2020/5/28 15:27
+     */
+    public static function isAjax()
+    {
+        return isset($_SERVER['HTTP_ORIGIN'], $_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD']) //OPTIONS
+            || isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest' //JQuery
+            || isset($_SERVER['HTTP_ACCEPT']) && strpos(strtolower($_SERVER['HTTP_ACCEPT']),
+                'application/json') !== false;
+    }
+
+    /**
+     * 判断是不是https请求
+     * isHTTPS
+     * @return bool
+     *
+     * @date 2020/5/28 15:28
+     */
+    public static function isHTTPS()
+    {
+        if (!isset($_SERVER['HTTPS'])) {
+            return false;
+        }
+
+        if ($_SERVER['HTTPS'] === 1) {  //Apache
+            return true;
+        } elseif ($_SERVER['HTTPS'] === 'on') { //IIS
+            return true;
+        } elseif ($_SERVER['SERVER_PORT'] == 443) { //其他
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * 数组多维排序
      * 对同一组数据进行分数从高到低，并 按姓名 A-Z的方式去排序
      * arrayMultiSort
@@ -592,6 +618,33 @@ class Tools
         $args[] = &$data;
         call_user_func_array('array_multisort', $args);
         return array_pop($args);
+    }
+
+    /**
+     * 格式化金额 千分逗号分隔
+     * @param string|integer $input
+     * @param integer $decimals 保留小数
+     * @return string
+     */
+    public static function formatMoney($input, $decimals = 2)
+    {
+        is_numeric($input) || $input = 0;
+        if (is_string($input) && stripos($input, 'E') === false) {
+            sscanf($input, '%[^.].%s', $integer, $decimal);
+
+            $result = '';
+            $integer = strrev($integer);
+            for ($i = strlen($integer) - 1; $i >= 0; $i--) {
+                $result .= $integer[$i] . ($i % 3 === 0 && $i !== 0 ? ',' : '');
+            }
+
+            $decimal = strlen($decimal) < $decimals ? str_pad($decimal, $decimals, '0') :
+                substr(sprintf("%.{$decimals}f", '.' . $decimal), 2);
+
+            return $result . '.' . $decimal;
+        }
+
+        return number_format($input, $decimals);
     }
 
 }
