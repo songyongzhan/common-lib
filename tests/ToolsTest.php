@@ -16,6 +16,34 @@ class ToolsTest extends TestCase
 
     }
 
+    public function testArrayMultiSort()
+    {
+         $arr = array(
+            '0' => array(
+                'id' => 3,
+                'age' => 27,
+            ),
+            '1' => array(
+                'id' => 5,
+                'age' => 50,
+            ),
+            '2' => array(
+                'id' => 4,
+                'age' => 44,
+            ),
+            '3' => array(
+                'id' => 1,
+                'age' => 78,
+            ),
+        );
+
+        $data = Tools::arrayMultiSort($arr, 'id', SORT_ASC, 'age', SORT_DESC);
+        echo "<pre style='color:blue;font-size:14px;'>";
+        echo 'file:' . __FILE__ . ' line:' . __LINE__;
+        print_r($data);
+        echo "</pre>";
+        exit;
+    }
 
     public function testCamel()
     {

@@ -527,4 +527,71 @@ class Tools
         return $post;
     }
 
+    /**
+     * 获取uuid
+     * getGUID
+     * @return string
+     *
+     * @date 2020/5/28 11:24
+     */
+    public static function getGUID()
+    { //32
+        if (function_exists('com_create_guid')) {
+            return trim(com_create_guid(), '{}');
+        } else {
+            $charid = strtoupper(md5(uniqid(rand(), true)));
+            $result = substr($charid, 0, 8) . '-' . substr($charid, 8, 4) . '-' . substr($charid, 12, 4)
+                . '-' . substr($charid, 16, 4) . '-' . substr($charid, 20, 12);
+            return $result;
+        }
+    }
+
+    /**
+     * 数组多维排序
+     * 对同一组数据进行分数从高到低，并 按姓名 A-Z的方式去排序
+     * arrayMultiSort
+     * @return mixed
+     *
+     * @date 2020/5/28 14:13
+     * @example
+     * $arr = array(
+     * '0' => array(
+     * 'id' => 3,
+     * 'age' => 27,
+     * ),
+     * '1' => array(
+     * 'id' => 5,
+     * 'age' => 50,
+     * ),
+     * '2' => array(
+     * 'id' => 4,
+     * 'age' => 44,
+     * ),
+     * '3' => array(
+     * 'id' => 3,
+     * 'age' => 78,
+     * ),
+     * );
+     *
+     * $result2 = arrayMultiSort($arr, 'id', SORT_ASC, 'age', SORT_DESC);
+     *
+     */
+    public static function arrayMultiSort()
+    {
+        $args = func_get_args();
+        $data = array_shift($args);
+        foreach ($args as $n => $field) {
+            if (is_string($field)) {
+                $tmp = array();
+                foreach ($data as $key => $row) {
+                    $tmp[$key] = $row[$field];
+                }
+                $args[$n] = $tmp;
+            }
+        }
+        $args[] = &$data;
+        call_user_func_array('array_multisort', $args);
+        return array_pop($args);
+    }
+
 }
