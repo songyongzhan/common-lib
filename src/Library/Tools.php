@@ -6,7 +6,6 @@ namespace Songyz\Common\Library;
  * 常用工具包
  * Class Tools
  * @package Songyz\Common\Library
- * @author songyz <574482856@qq.com>
  * @date 2020/5/20 10:48
  */
 class Tools
@@ -187,7 +186,6 @@ class Tools
      * @param string $changeType 默认是转换键值对 的键
      * @return array
      *
-     * @author songyz <songyz@guahao.com>
      * @date 2020/5/21 10:27
      */
     public static function dataCamel(array $data, $changeType = 'key')
@@ -233,7 +231,6 @@ class Tools
      * @param string $delimiter
      * @param string $changeType
      * @return array
-     * @author songyz <songyz@guahao.com>
      * @date 2020/1/19 17:12
      */
     public static function dataSnake(array $data, $delimiter = '_', $changeType = 'key')
@@ -280,7 +277,7 @@ class Tools
      * @param string $expectDot 如果里面包含字符指定 则不进行前缀添加
      * @return array
      *
-     * @author songyz <songyz@guahao.com>
+     * 
      * @date 2020/2/5 12:20
      */
     public static function addArrayPrefix(
