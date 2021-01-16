@@ -36,8 +36,9 @@
   },
   "require": {
     "php": ">=7.1",
-    "lcobucci/jwt": "^3.3",
-    "guzzlehttp/guzzle": "^6.5"
+    "lcobucci/jwt": "~3.3",
+    "guzzlehttp/guzzle": "~6.5"
   },
-  "minimum-stability": "dev"
+  
+  "minimum-stability": "stable"
 }

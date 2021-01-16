@@ -20,7 +20,7 @@ class Card
      *
      * @date 2020/5/20 23:49
      */
-    function getBirthDay($idCard, $delimiter = '-')
+    public static function getBirthDay($idCard, $delimiter = '-')
     {
         if (!$idCard) {
             return '';
@@ -44,13 +44,13 @@ class Card
     public static function idCardInfo(string $idCard)
     {
         $data = [
-            'birthday_date' => '',
+            'birthday_date'      => '',
             'birthday_timestamp' => '',
-            'gender' => '',
-            'age' => 0,
+            'gender'             => '',
+            'age'                => 0,
         ];
 
-        if (!is_id_card_no($idCard)) {
+        if (!self::isIdCardNo($idCard)) {
             return $data;
         }
 
@@ -58,9 +58,9 @@ class Card
             $idCardLen = strlen($idCard);
             if (18 == $idCardLen || 15 == $idCardLen) {
                 $birthday = [
-                    'birthday_year' => '',
+                    'birthday_year'  => '',
                     'birthday_month' => '',
-                    'birthday_day' => '',
+                    'birthday_day'   => '',
                 ];
                 if (15 == $idCardLen) {
                     $birthday['birthday_year'] = 19 . substr($idCard, 6, 2);
@@ -85,4 +85,90 @@ class Card
 
         return $data;
     }
+
+    /**
+     * 判断是不是身份证号
+     * isIdCardNo
+     * @param string $vStr
+     * @return bool
+     *
+     * @author songyongzhan <574482856@qq.com>
+     * @date 2021/1/16 10:28
+     */
+    public static function isIdCardNo(string $vStr)
+    {
+        $vCity = array(
+            '11',
+            '12',
+            '13',
+            '14',
+            '15',
+            '21',
+            '22',
+            '23',
+            '31',
+            '32',
+            '33',
+            '34',
+            '35',
+            '36',
+            '37',
+            '41',
+            '42',
+            '43',
+            '44',
+            '45',
+            '46',
+            '50',
+            '51',
+            '52',
+            '53',
+            '54',
+            '61',
+            '62',
+            '63',
+            '64',
+            '65',
+            '71',
+            '81',
+            '82',
+            '91'
+        );
+
+        if (!preg_match('/^([\d]{17}[xX\d]|[\d]{15})$/', $vStr)) {
+            return false;
+        }
+
+        if (!in_array(substr($vStr, 0, 2), $vCity)) {
+            return false;
+        }
+
+        $vStr = preg_replace('/[xX]$/i', 'a', $vStr);
+        $vLength = strlen($vStr);
+
+        if ($vLength == 18) {
+            $vBirthday = substr($vStr, 6, 4) . '-' . substr($vStr, 10, 2) . '-' . substr($vStr, 12, 2);
+        } else {
+            $vBirthday = '19' . substr($vStr, 6, 2) . '-' . substr($vStr, 8, 2) . '-' . substr($vStr, 10, 2);
+        }
+
+        if (date('Y-m-d', strtotime($vBirthday)) != $vBirthday) {
+            return false;
+        }
+        if ($vLength == 18) {
+            $vSum = 0;
+
+            for ($i = 17; $i >= 0; $i--) {
+                $vSubStr = substr($vStr, 17 - $i, 1);
+                $vSum += (pow(2, $i) % 11) * (($vSubStr == 'a') ? 10 : intval($vSubStr, 11));
+            }
+
+            if ($vSum % 11 != 1) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
 }

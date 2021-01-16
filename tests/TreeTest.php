@@ -1,7 +1,6 @@
 <?php
 
-
-namespace Songyz\Common\Tests\Jwt;
+namespace Songyz\Common\Tests;
 
 use PHPUnit\Framework\TestCase;
 use Songyz\Common\Library\Tree;

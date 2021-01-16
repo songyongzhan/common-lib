@@ -1,6 +1,6 @@
 <?php
 
-namespace Songyz\Common\Tests\Jwt;
+namespace Songyz\Common\Test;
 
 use PHPUnit\Framework\TestCase;
 use Songyz\Common\Components\Traits\HttpClientAsyncTrait;
