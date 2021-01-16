@@ -15,10 +15,10 @@ class CardTest extends TestCase
 
     public function testCreateImg()
     {
-        $idCardInfo = Card::idCardInfo("130182198411201911");
+        $idCardInfo = Card::idCardInfo("110101199003079614");
         print_r($idCardInfo);
 
-        $birthDay = Card::getBirthDay("130182198411201911", "/");
+        $birthDay = Card::getBirthDay("110101199003079614", "/");
         print_r($birthDay);
     }
 
