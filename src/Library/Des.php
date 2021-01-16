@@ -2,7 +2,13 @@
 
 namespace Songyz\Common\Library;
 
-
+/**
+ * 对称 des 加解密工具类
+ * Class Des
+ * @package Songyz\Common\Library
+ * @author songyongzhan <574482856@qq.com>
+ * @date 2021/1/16 15:32
+ */
 class Des
 {
     public static function encrypt(string $data, string $key, $urlSafe = false)

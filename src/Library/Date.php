@@ -2,7 +2,13 @@
 
 namespace Songyz\Common\Library;
 
-
+/**
+ * 时间工具类
+ * Class Date
+ * @package Songyz\Common\Library
+ * @author songyongzhan <574482856@qq.com>
+ * @date 2021/1/16 15:31
+ */
 class Date
 {
     /**

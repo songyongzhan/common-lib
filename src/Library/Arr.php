@@ -4,6 +4,12 @@ namespace Songyz\Common\Library;
 
 use ArrayAccess;
 
+/**
+ * 数组工具类
+ * Class Arr
+ * @package Songyz\Common\Library
+ * @author songyongzhan <574482856@qq.com>
+ */
 class Arr
 {
     /**

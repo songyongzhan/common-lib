@@ -2,6 +2,13 @@
 
 namespace Songyz\Common\Library;
 
+/**
+ * 字符串加解密
+ * Class Str
+ * @package Songyz\Common\Library
+ * @author songyongzhan <574482856@qq.com>
+ * @date 2021/1/16 15:33
+ */
 class Str
 {
     /**

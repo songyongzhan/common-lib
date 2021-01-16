@@ -2,7 +2,13 @@
 
 namespace Songyz\Common\Library;
 
-
+/**
+ * 非对称 rsa 加解密
+ * Class Rsa
+ * @package Songyz\Common\Library
+ * @author songyongzhan <574482856@qq.com>
+ * @date 2021/1/16 15:32
+ */
 class Rsa
 {
 
@@ -11,9 +17,9 @@ class Rsa
     private static $instance;
 
     const PADDING_PKCS1 = OPENSSL_PKCS1_PADDING; //-11
-//    const PADDING_SSLV23 = 'OPENSSL_SSLV23_PADDING';
+    //const PADDING_SSLV23 = 'OPENSSL_SSLV23_PADDING';
     const PADDING_PKCS1_OAEP = OPENSSL_PKCS1_OAEP_PADDING; //-41
-//    const PADDING_NO = OPENSSL_NO_PADDING;
+    //const PADDING_NO = OPENSSL_NO_PADDING;
 
     /**
      * @var string 选择填充方式

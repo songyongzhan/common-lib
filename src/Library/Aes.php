@@ -2,7 +2,12 @@
 
 namespace Songyz\Common\Library;
 
-
+/**
+ * aes 加解密工具
+ * Class Aes
+ * @package Songyz\Common\Library
+ * @author songyongzhan <574482856@qq.com>
+ */
 class Aes
 {
     public static function encrypt(string $data, string $key, $urlSafe = false)

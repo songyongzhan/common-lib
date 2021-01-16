@@ -7,7 +7,6 @@ namespace Songyz\Common\Library;
  * Class Card
  * @package Songyz\Common\Library
  * @author songyz <574482856@qq.com>
- * @date 2020/5/20 10:48
  */
 class Card
 {

@@ -2,6 +2,12 @@
 
 namespace Songyz\Common\Library;
 
+/**
+ * 用户api请求 返回动态验证码
+ * Class Captcha
+ * @package Songyz\Common\Library
+ * @author songyongzhan <574482856@qq.com>
+ */
 class Captcha
 {
     /**
