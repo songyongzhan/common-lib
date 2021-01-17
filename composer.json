@@ -40,5 +40,5 @@
     "guzzlehttp/guzzle": "6.5.*"
   },
   
-  "minimum-stability": "stable"
+  "minimum-stability": "dev"
 }
