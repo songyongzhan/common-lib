@@ -197,6 +197,18 @@ class JwtService
     }
 
     /**
+     *
+     * getId
+     * @return 当前登录用户的id
+     *
+     * @author songyongzhan <574482856@qq.com>
+     * @date 2021/1/17 19:49
+     */
+    public function getId(){
+        return $this->id;
+    }
+
+    /**
      * 验证token是否有效
      * verify
      * @param $token
