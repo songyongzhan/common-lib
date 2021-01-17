@@ -138,7 +138,7 @@ class JwtService
     protected function validate()
     {
         $data = new ValidationData();
-        $data->setIssuer(config('app.name'));
+        $data->setIssuer($this->issuedBy);
         $data->setAudience($this->permittedFor);
         $parseToken = $this->parseToken();
 
