@@ -18,7 +18,7 @@ class Tree
      * @param int $pid
      * @param string $primaryKey
      * @param string $parent_name
-     * @param int $step
+     * @param string $sun_name
      * @return array
      *
      * @author songyz <574482856@qq.com>
@@ -32,8 +32,8 @@ class Tree
         $result = [];
         foreach ($data as $key => $val) {
             if ($val[$parent_name] == $pid) {
-                $temp = self::menuGroupList($data, $val[$primaryKey]);
-                count($temp) > 0 ? $val[$sun_name] = $temp : '';
+                $temp = self::menuGroupList($data, $val[$primaryKey], $primaryKey, $parent_name, $sun_name);
+                count($temp) > 0 ? $val[$sun_name] = $temp : $val[$sun_name] = [];
                 $result[] = $val;
             }
         }
