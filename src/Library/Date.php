@@ -20,7 +20,23 @@ class Date
      *
      * @date 2020/5/20 23:01
      */
-    public static function getCurrentDate($format = 'Y-m-d H:i:s', int $time = 0)
+    public static function getCurrentDate($format = 'Y-m-d', int $time = 0)
+    {
+        empty($time) && $time = time();
+        return date($format, $time);
+    }
+
+    /**
+     *
+     * getDateTime
+     * @param string $format
+     * @param int $time
+     * @return false|string
+     *
+     * @author songyongzhan <574482856@qq.com>
+     * @date 2020/5/20 23:01
+     */
+    public static function getDateTime($format = 'Y-m-d H:i:s', int $time = 0)
     {
         empty($time) && $time = time();
         return date($format, $time);

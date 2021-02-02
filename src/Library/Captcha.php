@@ -43,7 +43,7 @@ class Captcha
         imagefill($img, 0, 0, imagecolorallocate($img, 255, 255, 255));
 
         for ($i = 0; $i < 10; $i++) { //干扰线
-            $color = imagecolorallocate($img, mt_rand(0, 255), mt_rand(0, 255), mt_rand(0, 255));
+            $color = imagecolorallocate($img, mt_rand(150, 255), mt_rand(150, 255), mt_rand(150, 255));
             imageline($img, mt_rand(0, $width), mt_rand(0, $height), mt_rand(0, $width), mt_rand(0, $height), $color);
         }
 
