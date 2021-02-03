@@ -41,6 +41,78 @@ class Tree
     }
 
     /**
+     * 根据根据id 获取data中 id 及子类下所有的类目
+     * menuGroupListById
+     * @param $data
+     * @param $id
+     * @param string $primaryKey
+     * @param string $parent_name
+     * @param string $sun_name
+     * @param string $sortFields
+     * @param string $sortType
+     * @return array
+     * @throws \Exception
+     *
+     * @author songyongzhan <574482856@qq.com>
+     * @date 2021/2/3 13:25
+     */
+    public static function getMenuGroupListById(
+        $data,
+        $id,
+        $primaryKey = 'id',
+        $parent_name = 'pid',
+        $sun_name = 'sun',
+        $sortFields = 'sort_id',
+        $sortType = 'asc'
+    ) {
+
+        $result = self::getSuns($data, $id, $parent_name, $primaryKey);
+        $result = self::menuSortBy($result, $sortFields, $sortType);
+
+        $keys = array_column($data, $primaryKey);
+        $data = array_combine($keys, $data);
+        $first = $data[$id] ?? [];
+        if (empty($first)) {
+            throw new \Exception("没有找到{$id}对应的数据");
+        }
+        array_unshift($result, $first);
+
+        return self::menuGroupList($result, $first['pid'], $primaryKey, $parent_name, $sun_name);
+    }
+
+    /**
+     * 分组级联的数据结构 拆分成简单一维数组
+     * getMenuListByGroupList
+     *
+     * @param $data
+     * @param string $sun_name
+     * @param string $levelName
+     * @param int $level
+     * @return array
+     * @author songyongzhan <574482856@qq.com>
+     * @date 2021/2/3 13:32
+     */
+    public static function getMenuLevelListByGroupList($data, $sun_name = 'sun', $levelName = 'level', $level = 0)
+    {
+        $result = [];
+        foreach ($data as $key => $val) {
+            $sunData = $val[$sun_name] ?? [];
+            if (isset($val[$sun_name])) {
+                unset($val[$sun_name]);
+            }
+            $val[$levelName] = $level;
+            $result[] = $val;
+            if ($sunData) {
+                $result = array_merge($result,
+                    self::getMenuLevelListByGroupList($sunData, $sun_name, $levelName, ++$level));
+            }
+        }
+
+        return $result;
+    }
+
+
+    /**
      * 按照step显示栏目
      * menuList
      * @param $data
