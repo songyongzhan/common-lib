@@ -19,14 +19,25 @@ class Captcha
      * @param int $len
      * @param bool $border
      * @param string $fontPath
+     * @param int $fontSize
+     * @param int $offsetX //可以适当调整字符出现的偏移量  横坐标
+     * @param int $offsetY //可以适当调整字符出现的偏移量  纵坐标
      * @return array
      * @throws \Exception
-     *
      * @author songyongzhan <574482856@qq.com>
      * @date 2021/1/16 10:51
      */
-    public static function createImg($code = '', $width = 70, $height = 25, $len = 4, $border = false, $fontPath = '')
-    {
+    public static function createImg(
+        $code = '',
+        $width = 70,
+        $height = 25,
+        $len = 4,
+        $border = false,
+        $fontPath = '',
+        $fontSize = 0,
+        $offsetX = 0,
+        $offsetY = 0
+    ) {
         if (!$code) { //create_captcha
             for ($i = 0; $i < $len; $i++) {
                 $code .= dechex(mt_rand(0, 15));
@@ -53,10 +64,12 @@ class Captcha
         }
 
         $size = $width / $len - 3;
+        $fontSize > 0 && $size = $fontSize;
+
         for ($i = 0; $i < strlen($code); $i++) { //验证码
             $color = imagecolorallocate($img, mt_rand(0, 100), mt_rand(0, 150), mt_rand(0, 200));
 
-            imagettftext($img, $size, mt_rand(-50, 50), $i * $size + 5, $height - 5, $color
+            imagettftext($img, $size, mt_rand(-50, 50), $i * $size + 5 + $offsetX, $height - 5 + $offsetY, $color
                 , $fontPath, $code[$i]);
         }
 
