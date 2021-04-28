@@ -8,23 +8,21 @@ use Songyz\Common\Library\Aes;
 use Songyz\Common\Library\Rsa;
 use function GuzzleHttp\default_user_agent;
 
-class AesTest extends TestCase
+class EnvTest extends TestCase
 {
 
-    public function testEncrypt()
+    public function testRunEnv()
     {
-        $str = 'james';
-        $str = Aes::encrypt($str, '123');
+        $str = \Songyz\Common\Library\Env::getRunEnv();
         echo $str;
-
         $this->assertIsString($str);
 
     }
 
-    public function testDe()
+    public function testGetName()
     {
-        $str = 'NL7rrUNodNkSMvdBtDbob334VRnlM25/TPjkCcga9mE=';
-        $data = Aes::decrypt($str, '123');
+
+        $data = \Songyz\Common\Library\Env::getValueByName('yaf.library');
         var_dump($data);
         $this->assertIsString($data);
     }
