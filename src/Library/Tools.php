@@ -50,9 +50,9 @@ class Tools
     public static function getWhereCondition($field, $val, $operator = '=', $condition = 'AND')
     {
         return [
-            'field' => trim($field),
-            'val' => $val,
-            'operator' => $operator,
+            'field'     => trim($field),
+            'val'       => $val,
+            'operator'  => $operator,
             'condition' => $condition,
         ];
     }
@@ -277,7 +277,7 @@ class Tools
      * @param string $expectDot 如果里面包含字符指定 则不进行前缀添加
      * @return array
      *
-     * 
+     *
      * @date 2020/2/5 12:20
      */
     public static function addArrayPrefix(
@@ -642,6 +642,33 @@ class Tools
         }
 
         return number_format($input, $decimals);
+    }
+
+    /**
+     * 数据转为base64
+     * base64encode
+     * @param $data
+     * @param bool $urlSafe 是否安全
+     * @return string
+     *
+     */
+    public static function base64encode($data, $urlSafe = false)
+    {
+        $data = base64_encode($data);
+        return $urlSafe ? strtr($data, '+/', '-_') : $data;
+    }
+
+    /**
+     * base64 转为数据
+     * base64decode
+     * @param $data
+     * @param bool $urlSafe
+     * @return false|string
+     *
+     */
+    public static function base64decode($data, $urlSafe = false)
+    {
+        return base64_decode($urlSafe ? strtr($data, '-_', '+/') : $data);
     }
 
 }
