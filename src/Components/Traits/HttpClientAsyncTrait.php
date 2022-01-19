@@ -19,7 +19,8 @@ trait HttpClientAsyncTrait
      * @var array
      */
     protected $headers = [
-        'content-type' => 'x-www-form-urlencoded',
+        'content-type' => 'application/x-www-form-urlencoded',
+        // 'content-type' => 'application/json',
         'X-Requested-With' => 'XMLHttpRequest',
     ];
 

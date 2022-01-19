@@ -4,6 +4,12 @@ namespace Songyz\Common\Components\Traits;
 
 use GuzzleHttp\Client;
 
+/**
+ * 使用文档参考 https://guzzle-cn.readthedocs.io/zh_CN/latest/quickstart.html
+ * Trait HttpClientTrait
+ * @package Songyz\Common\Components\Traits
+ * @date 2022/01/2022/1/19 14:06
+ */
 trait HttpClientTrait
 {
     protected $httpClient;
@@ -19,7 +25,8 @@ trait HttpClientTrait
      * @var array
      */
     protected $headers = [
-        'content-type' => 'x-www-form-urlencoded',
+        'content-type' => 'application/x-www-form-urlencoded',
+        // 'content-type' => 'application/json',
         'X-Requested-With' => 'XMLHttpRequest',
     ];
 
