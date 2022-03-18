@@ -14,6 +14,22 @@ use function GuzzleHttp\default_user_agent;
 class ArrTest extends TestCase
 {
 
+    public function testOrderBy()
+    {
+        $data[] = array('volume' => 67, 'edition' => 2);
+        $data[] = array('volume' => 86, 'edition' => 1);
+        $data[] = array('volume' => 85, 'edition' => 6);
+        $data[] = array('volume' => 98, 'edition' => 2);
+        $data[] = array('volume' => 86, 'edition' => 6);
+        $data[] = array('volume' => 67, 'edition' => 7);
+
+        $orderBy = Arr::orderBy($data, 'edition', SORT_ASC);
+
+        print_r($orderBy);
+        $this->assertIsBool(true);
+
+    }
+
     public function testArrAll()
     {
 
@@ -44,7 +60,7 @@ class ArrTest extends TestCase
         // $data = Arr::prepend($data, "樱桃", "ten");
         // var_dump($data);
 
-        $data = Arr::add($data, "nine","荔枝");
+        $data = Arr::add($data, "nine", "荔枝");
         var_dump($data);
 
 
