@@ -2,7 +2,7 @@
 
 namespace Songyz\Common\Components\Traits;
 
-use GuzzleHttp\Client;
+use Songyz\Common\Components\Expand\Client;
 
 /**
  * 使用文档参考 https://guzzle-cn.readthedocs.io/zh_CN/latest/quickstart.html
