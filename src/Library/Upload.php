@@ -6,7 +6,7 @@ use SplFileObject;
 
 /**
  * 文件上传
- * Class File
+ *
  */
 class Upload extends SplFileObject
 {
